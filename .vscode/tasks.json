@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "FPGA: Build Project",
+            "type": "shell",
+            "command": "yosys -p 'read_verilog -sv top.sv; synth_ice40 -top uart_hw -json ${workspaceFolderBasename}.json' && nextpnr-ice40 --up5k --package sg48 --json ${workspaceFolderBasename}.json --pcf icebreaker.pcf --asc ${workspaceFolderBasename}.asc && icepack ${workspaceFolderBasename}.asc ${workspaceFolderBasename}.bin",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "FPGA: Flash iCEBreaker",
+            "type": "shell",
+            "command": "iceprog ${workspaceFolderBasename}.bin",
+            "group": "none",
+            "dependsOn": "FPGA: Build Project",
+            "problemMatcher": []
+        }
+    ]
+}

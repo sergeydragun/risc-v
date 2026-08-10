@@ -1,0 +1,5 @@
+set_io clk 35
+set_io tx 9
+set_io rx 6
+set_io led_busy_tx 37 
+set_io led_busy_rx 11 
