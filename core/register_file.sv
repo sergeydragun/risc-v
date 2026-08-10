@@ -3,7 +3,7 @@ module regfile_unit(
     input logic sw,
     input logic [5:0] a1, a2, a3,
     input logic [31:0] rint3,
-    input logic [31:0] rout1, rout2
+    output logic [31:0] rout1, rout2
 );
 
 logic [31:0] regfile [31:0];
