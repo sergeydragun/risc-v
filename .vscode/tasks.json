@@ -2,12 +2,33 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "SIM: Compile & Run (Icarus)",
+            "type": "shell",
+            // Собираем ВСЕ файлы .sv из структуры проекта и запускаем симуляцию
+            "command": "iverilog -g2012 -o sim.vvp -I src/risc-v/alu -I src/risc-v/controller -I src/risc-v/datapath src/test/testbench.sv top.sv src/mem/*.sv src/risc-v/*.sv src/risc-v/**/*.sv src/uart/*.sv && vvp sim.vvp",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "SIM: Open Waves (GTKWave)",
+            "type": "shell",
+            "command": "/usr/bin/gtkwave simulation.vcd",
+            "group": "none",
+            "dependsOn": "SIM: Compile & Run (Icarus)",
+            "problemMatcher": []
+        },
+        {
             "label": "FPGA: Build Project",
             "type": "shell",
-            "command": "yosys -p 'read_verilog -sv top.sv; synth_ice40 -top uart_hw -json ${workspaceFolderBasename}.json' && nextpnr-ice40 --up5k --package sg48 --json ${workspaceFolderBasename}.json --pcf icebreaker.pcf --asc ${workspaceFolderBasename}.asc && icepack ${workspaceFolderBasename}.asc ${workspaceFolderBasename}.bin",
+            "command": "yosys -p 'read_verilog -sv top.sv src/mem/*.sv src/risc-v/*.sv src/risc-v/**/*.sv src/uart/*.sv; synth_ice40 -top top -json ${workspaceFolderBasename}.json' && nextpnr-ice40 --up5k --package sg48 --json ${workspaceFolderBasename}.json --pcf icebreaker.pcf --asc ${workspaceFolderBasename}.asc && icepack ${workspaceFolderBasename}.asc ${workspaceFolderBasename}.bin",
             "group": {
-                "kind": "build",
-                "isDefault": true
+                "kind": "build"
             },
             "options": {
                 "cwd": "${workspaceFolder}"

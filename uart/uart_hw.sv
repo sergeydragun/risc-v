@@ -1,6 +1,3 @@
-`include "uart_rx.sv"
-`include "uart_tx.sv"
-
 module uart_hw (
     input wire clk,
     input wire rx,
