@@ -1,4 +1,4 @@
-module rf_rdata_driver_sv(
+module driver_rf_rdata(
         input logic clk,
         input logic [31:0] rd1, rd2,
         output logic [31:0] A, B
