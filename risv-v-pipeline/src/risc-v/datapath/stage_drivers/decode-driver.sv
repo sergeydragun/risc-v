@@ -2,13 +2,14 @@ module decode_driver(
     input logic clk,
     input logic [31:0] RD1,
     input logic [31:0] RD2,
-    input logic [31:0] RCD,
+    input logic [31:0] PCD,
     input logic [31:0] RdD,
     input logic [31:0] ImmExtD,
     input logic [31:0] PCPlus4D,
+
     output logic [31:0] RD1E,
     output logic [31:0] RD2E,
-    output logic [31:0] RCE,
+    output logic [31:0] PCE,
     output logic [31:0] RdE,
     output logic [31:0] ImmExtE,
     output logic [31:0] PCPlus4E
